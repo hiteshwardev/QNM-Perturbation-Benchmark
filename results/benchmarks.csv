@@ -1,0 +1,18 @@
+benchmark,value,criterion,pass
+"1 Slab poles: transfer matrix vs Eq. (2), relative deviation",1.3873261189332547e-17,< 1e-12,True
+"2 Flux conservation, max ||t|^2 + |r|^2 - 1|",3.3306690738754696e-15,< 1e-12,True
+3 Double barrier: transfer matrix vs closed-form condition,2.0812997833921785e-17,< 1e-10,True
+4 Double-precision poles vs 50-digit Muller iteration,6.867389881055581e-17,< 1e-12,True
+5a Interior layer: exponent of first-order error in delta,1.000383975027281,1 +/- 0.05,True
+"5b Interior layer: largest first-order error, delta <= 1e-3",0.000294407417307161,< 1e-3,True
+6 Exterior overlap: Eq. (5) vs quadrature,8.338810152115757e-10,< 1e-7,True
+"7a RSE, homogeneous change: relative error at N = 401",4.468642037442264e-12,< 1e-6,True
+"7b RSE, homogeneous change: monotone convergence (1 = yes)",1.0,1,True
+8a Residue: contour integral vs i n_B f_R^2,1.545970074468405e-16,< 1e-10,True
+8b Background ratio: contour integral vs Eq. (11),1.8237399258727401e-16,< 1e-10,True
+"9 Fabry-Perot condition at exact poles, |1 - rho_c rho_p exp(2i n_B k d)|",2.4629433904032807e-13,< 1e-8,True
+10a Self-consistent fixed-point residual,0.0,< 1e-13,True
+"10b Self-consistent vs naive at delta = 1e-9, |ratio - 1|",1.642103601845039e-08,< 1e-6,True
+10a Resummed fixed-point residual,0.0,< 1e-13,True
+"10b Resummed vs naive at delta = 1e-9, |ratio - 1|",3.019959662737756e-08,< 1e-6,True
+11 Layer reflection: order of the remainder after two Born terms (relative),1.9990560461035674,2 +/- 0.05,True

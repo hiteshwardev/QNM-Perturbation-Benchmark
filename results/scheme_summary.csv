@@ -1,0 +1,7 @@
+scheme,input,second-order residual,cells below 10%,"error at d = 30, delta = 1e-3"
+naive first order,overlap F(k0),a(d) F^2,0.4737762237762238,0.3680019592000322
+regularized first order,overlap F(Re k0),floor |1 - c exp(-gamma_f d)|,0.11888111888111888,0.9635571352525731
+self-consistent,overlap at k0 + dk,(alpha + b e) F^2,0.5157342657342657,0.1065260067933486
+resummed,"overlap at k0 + dk, alpha",b e F^2 (d-independent relative),0.6293706293706294,0.003986961329333287
+"resummed, alpha = i/gamma_0","overlap at k0 + dk, Q",(alpha - i/gamma_0 + b e) F^2,0.6241258741258742,0.0016283549276877583
+"resummed, second Born","layer reflection to 2nd order, alpha",none (third order),0.7307692307692307,0.00037035644353860685
