@@ -1,95 +1,56 @@
-# Quasinormal-mode perturbation theory for exterior perturbers
+# Exact Error Laws and Distance-Independent Resummation for Quasinormal-Mode Perturbation by Exterior Scatterers
 
-Exact error laws and a distance-independent resummation, computed for a one-dimensional
-dielectric slab cavity perturbed by a thin layer placed outside it.
+**Author:** Hitesh Kumar Singh · [ORCID: 0009-0008-1583-4848](https://orcid.org/0009-0008-1583-4848)
+*Department of Physics, Kurukshetra University, Kurukshetra, Haryana, India*
 
-First-order quasinormal-mode (QNM) perturbation theory predicts frequency shifts that grow
-exponentially with the distance to an exterior perturber, because the QNM field grows
-exponentially outside the cavity. This repository compares naive, regularized, self-consistent
-and resummed perturbative schemes, an embedding-basis resonant-state expansion and a Lorentzian
-fit of the transmission with exact transfer-matrix poles. It derives the second-order error of
-first-order theory from the Fabry–Pérot form of the pole condition and verifies it in 40-digit
-arithmetic.
+---
 
-## Main results
+## Abstract
 
-* The exact shift grows at the spatial rate of the QNM field, so the exponential growth is physical.
-* The error of first-order theory has three parts. One grows linearly with the gap, one is set by
-  the background-to-residue ratio α of the cavity reflection, and one is the second Born term of
-  the layer. The law contains no fitted parameter and agrees with 40-digit exact poles to 5×10⁻⁷.
-* Evaluating the overlap at the shifted frequency removes the growing term. Resumming the
-  Fabry–Pérot series with α removes the rest, leaving a relative error of about 3.9δ that does not
-  depend on the distance.
-* The error of the regularized scheme follows the closed-form floor |1 − c e^(−γ_f d)|.
+First-order quasinormal-mode (QNM) perturbation theory predicts exponentially increasing frequency shifts when a perturber is placed progressively farther outside an open resonator, but the accuracy of this prediction and the errors of proposed corrections remain insufficiently quantified. This work derives parameter-free error laws and a distance-independent resummation for a one-dimensional dielectric slab cavity coupled to a thin exterior layer. By expressing the exact pole condition in Fabry-Pérot form and separating the cavity reflection into its QNM pole and a non-resonant background, the complete second-order error of first-order perturbation theory is obtained. Exact poles in 40-digit arithmetic verify the law to a maximum relative deviation of 5.0 × 10⁻⁷. Across cavities spanning a factor of 14 in radiative loss, the exact shift grows at the spatial rate of the QNM field to within 0.2%. A resummed approximation removes the distance-dependent error growth, leaving a predicted relative error of 3.86δ. At δ = 10⁻³ and a separation of 30 cavity lengths, the naive, regularized, self-consistent and resummed schemes have relative errors of 37%, 96%, 11% and 0.4%.
 
-## Reproducing the study
+## Core Objectives
 
-The whole study runs from `notebook.ipynb`, which computes every number and figure. It takes about
-two minutes on two cores of a 2.1 GHz processor.
+- Quantify, against exact poles, the accuracy of the QNM perturbation schemes used for exterior scatterers.
+- Explain analytically why each scheme fails, and whether the exponential growth of the shift is physical.
+- Construct a remedy that stays within perturbation theory.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate            # on Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-jupyter nbconvert --to notebook --execute --inplace notebook.ipynb
-```
+## Scientific Significance
 
-With conda, `conda env create -f environment.yml` followed by `conda activate qnm-exterior-perturbation`
-sets up the same environment. You can also open the notebook in Jupyter and run all cells in
-order. The notebook must be run from the repository root, because it imports the modules in `src/`.
+QNM perturbation theory is a standard tool in nanophotonics, yet the field of a QNM grows exponentially outside the resonator and published treatments disagree on whether the resulting growth of the shift is an artefact. This project turns that qualitative disagreement into quantitative error laws and a prescription for when each scheme can be trusted. The same tension between leaky-mode response and distant perturbations appears in other open systems such as black-hole QNMs, noted in the manuscript only as an analogy.
 
-## Repository layout
+## Methodological Approach
 
-```
-notebook.ipynb       complete study: theory, validation, computations, figures, summary
-src/
-  tmm.py             transfer matrices, Newton pole search, pole continuation
-  qnm.py             closed-form slab quasinormal modes and normalized fields
-  perturbation.py    exterior overlap and the naive, regularized, self-consistent and resummed shifts
-  rse.py             resonant-state expansion with a homogeneous basis slab
-  lorentzian.py      Lorentzian fit of the exact transmission
-  stats.py           straight-line fits with Newey-West standard errors
-  plotting.py        fixed-size single-panel figures with an automatic layout check
-figures/             fig01 ... fig21 as PDF and 600 dpi PNG, and manifest.csv with the captions
-results/             data tables written by the notebook and summary.json with all quoted numbers
-requirements.txt     pinned Python dependencies
-environment.yml      conda environment
-```
+- **Analytical:** the exact pole condition is written in Fabry-Pérot form; the cavity reflection is split into its QNM pole and a non-resonant background; the expansion to second order gives the error law.
+- **Exact reference:** transfer-matrix poles continued in the perturbation strength, verified with 50-digit Muller iteration and 40-digit arithmetic.
+- **Benchmarks:** four perturbative schemes, a Lorentzian fit of the transmission and an embedding-basis resonant-state expansion (RSE), over four decades of strength and gaps up to 30 cavity lengths (572 grid cells).
+- **Scope tests:** three cavities, five layer thicknesses and both signs of the permittivity change, designed after the law was derived. A written analysis plan fixed expectations in advance, and the unmet expectations are reported.
 
-## Outputs
+## Contributions
 
-| file in `results/` | content |
-|---|---|
-| `benchmarks.csv` | known-answer validation benchmarks and their pass criteria |
-| `interior_control.csv` | first-order theory for a layer inside the cavity |
-| `tracking.csv` | comparison of pole-continuation conventions |
-| `identity.csv` | minimal-loss mode identification at large gaps |
-| `shifts_and_errors.csv` | exact poles, all scheme shifts and relative errors on the full grid |
-| `line_scans.csv` | 600-gap scans used for display |
-| `lorentzian.csv` | Lorentzian fits of the exact transmission |
-| `naive_error_rates.csv` | growth-rate fits of the naive error |
-| `second_order_coefficient_40digit.csv` | second-order coefficient from 40-digit exact poles |
-| `regularized_floor.csv` | small-strength error of the regularized scheme and the floor law |
-| `crossover.csv` | gap at which each scheme first exceeds 10% error |
-| `cavities.csv` | scope campaign across three cavities |
-| `geometry.csv` | scope campaign across perturber thickness and sign |
-| `rse.csv`, `rse_exponents.csv`, `rse_deep.csv` | resonant-state-expansion convergence |
-| `scheme_summary.csv` | summary of the perturbative schemes |
-| `summary.json` | every number quoted in the manuscript |
+1. The complete second-order error of first-order QNM theory for an exterior layer: a term linear in the gap, a constant set by the ratio of non-resonant background to pole residue, and a decaying second-Born term.
+2. A demonstration that the exponential growth of the exact shift is physical (field rate to within 0.2%), while the error of the naive formula grows at twice that rate.
+3. An analytic floor, 1 − c·exp(−γ<sub>f</sub> d), for the regularized scheme, showing it discards the physical growth.
+4. A distance-independent resummation whose error is set by the perturber alone.
+5. Validity maps and an RSE benchmark that define the regimes of each scheme.
 
-## Conventions
+6. **Positioning relative to prior work.** The project builds on the regularized-mode treatment of Franke, Ren and Hughes and on the argument of Wu, Jaramillo and Lalanne that the exponential growth is physical (arXiv:2401.15112).
 
-Time dependence exp(−iωt), c = 1, lengths in units of the cavity length L and wavenumbers in
-units of 1/L. The production cavity has refractive index 2π in vacuum, and the perturbing layer
-has thickness 0.1 L and permittivity change δ(n_R² − 1).
+## Key Findings
 
-## License
+- The second-order coefficient agrees with the 40-digit exact result to 5.0 × 10⁻⁷ (maximum relative deviation).
+- Naive error: 37% at 30 cavity lengths (δ = 10⁻³); regularized: 96%; self-consistent: 11%; resummed: 0.4%, and 1.5 × 10⁻⁵ (median) when the second Born term is included.
+- Fraction of the 572 grid cells with error below 10%: naive 47%, regularized 12%, self-consistent 52%, resummed 63% (73% with the second Born term).
+- The embedding-basis RSE meets the 10⁻⁶ error target at N = 801 even for the four hardest configurations (gap 3 L).
 
-The code is released under the MIT License (see `LICENSE`). The figures and data files in
-`figures/` and `results/` are released under the Creative Commons Attribution 4.0 International
-license (CC BY 4.0).
+## Scope and Limitations
 
-## Citation
+The study is one-dimensional, transverse-electric and nondispersive; extension to three-dimensional vectorial resonators remains to be shown. The resummed scheme retains the second Born term of the perturber, and all single-mode schemes fail when the perturbed pole hybridizes with resonances between cavity and perturber.
 
-H. K. Singh, *Quasinormal-mode perturbation theory for exterior perturbers: exact error laws and a
-distance-independent resummation*, manuscript in preparation (2026).
+## Roles
+
+Hitesh Kumar Singh is the sole author. Hitesh Kumar Singh conceived the study, derived the error laws and resummation, wrote the software, designed the benchmark and scope campaigns, carried out the analysis and wrote the manuscript.
+
+## Reproducibility and Availability
+
+Running `notebook.ipynb` from top to bottom (Python 3.11, packages pinned in `requirements.txt`) reproduces every number and figure in about 100 s on two cores. The code is released under the MIT License.
